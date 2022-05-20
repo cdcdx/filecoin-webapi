@@ -18,22 +18,31 @@ name = "filecoin-webapi"
 path = "src/main.rs"
 
 [dependencies]
-actix-rt = "*"
-actix-web = "^3"
-actix-multipart = "^0.3"
+actix = "0.11.0"
+actix-rt = "1.1.1"
+actix-web = { version = "3.3.2" }
+actix-multipart = "0.3.0"
 futures = "*"
 futures-core = "*"
 futures-util = "*"
 log = "*"
+fil_logger = "*"
 env_logger = "*"
-serde = { version = "*", features = ["derive"] }
+serde = { version = "1.0.123", features = ["derive"] }
 serde_json = "*"
 mime = "*"
 lazy_static = "*"
 libc = "*"
-bytes = "*"
-clap = "*"
+bytes = "~0.5"
+clap = "2.33.3"
+bellperson = { version = "0.18", default-features = false }
 
 [dependencies.filecoin-proofs-api]
 package = "filecoin-proofs-api"
-version = "5.0.0"
+version = "11.0"
+default-features = false
+
+[features]
+default = ["opencl"]
+opencl = ["filecoin-proofs-api/opencl", "bellperson/opencl"]
+cuda = ["filecoin-proofs-api/cuda", "bellperson/cuda"]
